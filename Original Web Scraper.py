@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import requests
 from bs4 import BeautifulSoup
 url = 'https://ar5iv.labs.arxiv.org/html/2304.01852'
