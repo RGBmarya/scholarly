@@ -1,12 +1,17 @@
-"use client"
-
 import React, { useState } from 'react';
 import { Button, Input } from "@geist-ui/core";
-import { getPaper } from "@/app/api/getPaper";
+import { useRouter } from 'next/navigation'
 
 export default function Search() {
     const [doi, setDoi] = useState(""); // State to store the DOI input value
-    const getPaperWithDoi = getPaper.bind(doi)
+    const router = useRouter()
+
+
+    const handleSearch = async () => {
+        console.log(doi)
+        router.push(`/read/${doi}`)
+    };
+
     return (
         <>
             <div className="flex flex-col items-center space-y-2 text-center">
@@ -19,7 +24,7 @@ export default function Search() {
                 <div className="grid gap-1">
                     <Input label="DOI" id="doi" placeholder="10.1126/science.169.3946.635" width="100%" value={doi} onChange={(e) => setDoi(e.target.value)} />
                 </div>
-                <Button onClick={getPaperWithDoi}>Search</Button>
+                <Button onClick={handleSearch}>Search</Button>
             </form>
         </>
     );
