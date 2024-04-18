@@ -1,15 +1,17 @@
+"use client"
+
 import React, { useState } from 'react';
-import { Button, Input } from "@geist-ui/core";
-import { useRouter } from 'next/navigation'
+import { Button, Input, useInput } from "@geist-ui/core";
+import { useRouter } from 'next/navigation';
 
 export default function Search() {
     const [doi, setDoi] = useState(""); // State to store the DOI input value
-    const router = useRouter()
-
+    const router = useRouter();
+    const { state, setState, reset, bindings } = useInput(doi);
 
     const handleSearch = async () => {
-        console.log(doi)
-        router.push(`/read/${doi}`)
+        console.log(state);
+        router.push(`/read/${state}`);
     };
 
     return (
@@ -22,9 +24,9 @@ export default function Search() {
             </div>
             <form className="flex flex-col gap-2 w-full max-w-3xl p-4 border rounded-lg border-gray-200 bg-white shadow-sm md:p-6">
                 <div className="grid gap-1">
-                    <Input label="DOI" id="doi" placeholder="10.1126/science.169.3946.635" width="100%" value={doi} onChange={(e) => setDoi(e.target.value)} />
+                    <Input label="DOI" id="doi" placeholder="10.1126/science.169.3946.635" width="100%" {...bindings} />
                 </div>
-                <Button onClick={handleSearch}>Search</Button>
+                <Button onClick={handleSearch} placeholder="">Search</Button>
             </form>
         </>
     );
