@@ -24,9 +24,18 @@ export default function Search() {
             </div>
             <form className="flex flex-col gap-2 w-full max-w-3xl p-4 border rounded-lg border-gray-200 bg-white shadow-sm md:p-6">
                 <div className="grid gap-1">
-                    <Input label="DOI" id="doi" placeholder="10.1126/science.169.3946.635" width="100%" {...bindings} />
+                    <Input
+                        label="DOI"
+                        id="doi"
+                        placeholder="10.1126/science.169.3946.635"
+                        width="100%"
+                        onPointerEnterCapture={() => {}}
+                        onPointerLeaveCapture={() => {}}
+                        crossOrigin=""
+                        {...bindings}
+                    />
                 </div>
-                <Button onClick={handleSearch} placeholder="">Search</Button>
+                <Button onClick={handleSearch} placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>Search</Button>
             </form>
         </>
     );
