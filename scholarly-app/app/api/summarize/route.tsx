@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { NextRequest } from "next/server";
 
 const openai = new OpenAI({
-  apiKey: "sk-proj-d4yUX6WkD4QRSqKQc9oRT3BlbkFJBILI1XmGWtWuwT8drNyg",
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
 export const dynamic = "force-dynamic"; // defaults to auto
