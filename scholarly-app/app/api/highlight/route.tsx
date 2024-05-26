@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const highlightedText = request.nextUrl.searchParams.get("text")
     console.log(highlightedText)
 
-    const response = await fetch(`http://localhost:3000/api/summarize?text=${highlightedText}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/summarize?text=${highlightedText}`);
     const data = await response.text();
 
     return new Response(data);
