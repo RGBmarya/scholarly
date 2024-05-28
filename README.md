@@ -18,6 +18,7 @@ Let Scholarly lend a hand with literature review. Engaging with research papers 
 ### Recommendation Engine
 - Suggests similar papers and ones of interest based on past readings.
 - Predicts impactful papers using machine learning and crowdsourced metrics, helping users stay ahead in their field of research.
+- [Bodhi](https://github.com/RGBmarya/bodhi) creates an optimal paper reading path to efficiently grasp an area of research
 
 ## Getting Started
 
