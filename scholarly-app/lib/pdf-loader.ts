@@ -1,10 +1,12 @@
-import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
+import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import path from 'path';
 
-export async function getChunkedDocsFromPDF() {
+export async function getChunkedDocsFromPDF(pdfPath: string) {
     try {
-        const loader = new PDFLoader(path.join(__dirname, '../docs/test-paper.pdf'))
+        const response = await fetch(pdfPath)
+        const blob = await response.blob();
+        const loader = new WebPDFLoader(blob)
         const docs = await loader.load()
 
         const textSplitter = new RecursiveCharacterTextSplitter({
