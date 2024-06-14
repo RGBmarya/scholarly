@@ -4,7 +4,7 @@ import path from 'path';
 
 export async function getChunkedDocsFromPDF(pdfPath: string) {
     try {
-        const response = await fetch(pdfPath)
+        const response = await fetch(`https://arxiv.org/pdf/${pdfPath}`)
         const blob = await response.blob();
         const loader = new WebPDFLoader(blob)
         const docs = await loader.load()

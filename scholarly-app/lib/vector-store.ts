@@ -5,7 +5,8 @@ import { PineconeStore } from "@langchain/pinecone";
 
 export async function embedAndStoreDocs(
     client: Pinecone,
-    docs: Document<Record<string, any>>[]
+    docs: Document<Record<string, any>>[],
+    pcNamespace: string, 
 ) {
     try  {
         const embeddings = new OpenAIEmbeddings({
@@ -16,7 +17,7 @@ export async function embedAndStoreDocs(
 
         await PineconeStore.fromDocuments(docs, embeddings, {
             pineconeIndex,
-            namespace: process.env.PINECONE_NAME_SPACE,
+            namespace: pcNamespace,
             textKey: "text",
         });
     } catch(e) {
