@@ -24,7 +24,7 @@ export default function Search() {
             try {
                 const response = await fetch('/api/embed', {
                     method: 'POST',
-                    body: JSON.stringify({ pdfPath: `https://arxiv.org/pdf/${state}` }),
+                    body: JSON.stringify({ doi: state }),
                     headers: {
                         'Content-Type': 'application/json'
                     }

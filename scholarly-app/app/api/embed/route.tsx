@@ -9,10 +9,10 @@ const openai = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  const { pdfPath } = await req.json();
+  const { doi } = await req.json();
 
   try {
-    const response = await embedPDF(pdfPath)
+    const response = await embedPDF(doi)
     return NextResponse.json({ status: 200 });
   } catch (error) {
     console.error('Error generating embeddings:', error);
