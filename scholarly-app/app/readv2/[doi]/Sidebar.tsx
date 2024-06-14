@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import type { Highlight } from "react-pdf-highlighter-extended";
 import "./style/Sidebar.css";
