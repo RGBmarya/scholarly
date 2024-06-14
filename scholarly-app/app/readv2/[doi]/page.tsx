@@ -137,6 +137,7 @@ const App = ({ params }: { params: { doi: string } }) => {
   };
 
   // Scroll to highlight based on hash in the URL
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const scrollToHighlightFromHash = () => {
     const highlight = getHighlightById(parseIdFromHash());
 
