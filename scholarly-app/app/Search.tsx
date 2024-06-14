@@ -21,7 +21,23 @@ export default function Search() {
             }, 4000);
         } else {
             console.log(state);
-            router.push(`/readv2/${state}`);
+            try {
+                const response = await fetch('/api/embed', {
+                    method: 'POST',
+                    body: JSON.stringify({ pdfPath: `https://arxiv.org/pdf/${state}` }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data)
+                    router.push(`/readv2/${state}`);
+                }
+            } catch (error) {
+                console.error(error)
+                throw new Error("Error: POST request to embed endpoint")
+            }
         }
     };
 
