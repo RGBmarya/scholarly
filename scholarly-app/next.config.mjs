@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    env: {
-        API_URL: process.env.NODE_ENV === 'production'
-            ? 'https://scholarly-nu.vercel.app'
-            : 'http://localhost:3000',
-    },
+    transpilePackages: ['react-pdf-highlighter'],
+    webpack: (config) => {
+        config.resolve.alias.canvas = false;
+        return config;
+    },    
 };
 export default nextConfig;
