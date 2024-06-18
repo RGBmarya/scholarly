@@ -181,7 +181,7 @@ const App = ({ params }: { params: { doi: string } }) => {
                 highlighterUtilsRef.current = _pdfHighlighterUtils;
               }}
               pdfScaleValue={pdfScaleValue}
-              selectionTip={<ExpandableTip addHighlight={addHighlight} />}
+              selectionTip={<ExpandableTip addHighlight={addHighlight} doi={doi} />}
               highlights={highlights}
               style={{
                 height: "calc(100% - 41px)",

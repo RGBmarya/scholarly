@@ -9,9 +9,10 @@ import "./style/ExpandableTip.css";
 
 interface ExpandableTipProps {
   addHighlight: (highlight: GhostHighlight, comment: string) => void;
+  doi: string;
 }
 
-const ExpandableTip = ({ addHighlight }: ExpandableTipProps) => {
+const ExpandableTip = ({ addHighlight, doi }: ExpandableTipProps) => {
   const [compact, setCompact] = useState(true);
   const selectionRef = useRef<PdfSelection | null>(null);
 
@@ -29,16 +30,44 @@ const ExpandableTip = ({ addHighlight }: ExpandableTipProps) => {
   return (
     <div className="Tip">
       {compact ? (
-        <button
-          className="Tip__compact"
-          onClick={() => {
-            setCompact(false);
-            selectionRef.current = getCurrentSelection();
-            selectionRef.current!.makeGhostHighlight();
-          }}
-        >
-          Add highlight
-        </button>
+        <>
+          <button
+            className="Tip__compact"
+            onClick={() => {
+              setCompact(false);
+              selectionRef.current = getCurrentSelection();
+              selectionRef.current!.makeGhostHighlight();
+            }}
+          >
+            Add highlight
+          </button>
+          <button
+            className="Tip__compact"
+            onClick={async () => {
+              setCompact(false);
+              selectionRef.current = getCurrentSelection();
+              selectionRef.current!.makeGhostHighlight();
+            try {
+                const response = await fetch('/api/explain', {
+                    method: 'POST',
+                    body: JSON.stringify({ currentSelection: getCurrentSelection(), namespace: doi }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data)
+                }
+            } catch (error) {
+                console.error(error)
+                throw new Error("Error: POST request to explain endpoint")
+            }
+            }}
+          >
+            Explain
+          </button>
+        </>
       ) : (
         <CommentForm
           placeHolder="Your comment..."
