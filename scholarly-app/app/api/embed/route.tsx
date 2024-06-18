@@ -1,12 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
 import { embedPDF } from '@/lib/pinecone-embed-docs';
-import { url } from 'inspector';
-
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
 export async function POST(req: NextRequest) {
   const { doi } = await req.json();
