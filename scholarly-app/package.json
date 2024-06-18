@@ -10,6 +10,7 @@
     "prepare:data": "tsx -r dotenv/config ./app/updated-read/[doi]/pinecone-embed-docs.ts"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.29",
     "@geist-ui/core": "^2.3.8",
     "@langchain/community": "^0.2.11",
     "@langchain/openai": "^0.1.3",
