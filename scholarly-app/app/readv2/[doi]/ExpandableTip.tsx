@@ -45,27 +45,26 @@ const ExpandableTip = ({ addHighlight, doi }: ExpandableTipProps) => {
             className="Tip__compact"
             onClick={async () => {
               selectionRef.current = getCurrentSelection();
-              selectionRef.current!.makeGhostHighlight();
-            try {
-                console.log("Printing current selection:", selectionRef.current?.content.text)
-                const response = await fetch('/api/explain/text', {
-                    method: 'POST',
-                    body: JSON.stringify({ 
-                                          currentSelection: selectionRef.current?.content.text,
-                                          namespace: doi 
-                                        }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    alert(data.message.content)
-                }
-            } catch (error) {
-                console.error(error)
-                throw new Error("Error: POST request to explain endpoint")
-            }
+              try {
+                  console.log("Printing current selection:", selectionRef.current?.content.text)
+                  const response = await fetch('/api/explain/text', {
+                      method: 'POST',
+                      body: JSON.stringify({ 
+                                            currentSelection: selectionRef.current?.content.text,
+                                            namespace: doi 
+                                          }),
+                      headers: {
+                          'Content-Type': 'application/json'
+                      }
+                  });
+                  if (response.ok) {
+                      const data = await response.json();
+                      alert(data.message.content)
+                  }
+              } catch (error) {
+                  console.error(error)
+                  throw new Error("Error: POST request to explain endpoint")
+              }
             }}
           >
             Explain
