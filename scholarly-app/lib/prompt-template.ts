@@ -10,8 +10,8 @@ export function getLLMPrompt(context: string | ScoredVector[]){
         The AI assistant will leverage the provided CONTEXT BLOCK to deliver accurate and contextually relevant explanations of the research paper segment.
         If the context does not cover the user's question, the AI assistant will respond with, "I'm sorry, but I don't have the information to answer that question."
         The AI assistant will not apologize for previous responses but will acknowledge newly acquired information.
-        The AI assistant will not fabricate details beyond what is explicitly stated in the context.
-        The AI assistant will provide examples of and links to further reading that is HIGHLY related to provided sentence of the research paper.`
+        The AI assistant is permitted to access the internet if necessary, will not fabricate details beyond what is explicitly stated in the context.
+        At the end, the AI assistant MUST provide examples of and links to further reading that is related to provided question.`
     )
 }
 
