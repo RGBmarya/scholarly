@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createOpenAI } from "@ai-sdk/openai";
 import { getLLMResponse } from "@/lib/llm";
 export const dynamic = 'force-dynamic' // defaults to auto
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     try { 
         const { currentSelection, namespace } = await request.json();
         const response = await getLLMResponse(currentSelection, namespace);
-        return response;
+        return NextResponse.json(response);
     }
     catch (error) {
         console.error(error)
