@@ -44,20 +44,23 @@ const ExpandableTip = ({ addHighlight, doi }: ExpandableTipProps) => {
           <button
             className="Tip__compact"
             onClick={async () => {
-              setCompact(false);
               selectionRef.current = getCurrentSelection();
               selectionRef.current!.makeGhostHighlight();
             try {
-                const response = await fetch('/api/explain', {
+                console.log("Printing current selection:", selectionRef.current?.content.text)
+                const response = await fetch('/api/explain/text', {
                     method: 'POST',
-                    body: JSON.stringify({ currentSelection: getCurrentSelection(), namespace: doi }),
+                    body: JSON.stringify({ 
+                                          currentSelection: selectionRef.current?.content.text,
+                                          namespace: doi 
+                                        }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data)
+                    alert(data.message.content)
                 }
             } catch (error) {
                 console.error(error)
