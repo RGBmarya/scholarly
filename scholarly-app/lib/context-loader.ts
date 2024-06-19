@@ -32,21 +32,15 @@ export const getContext = async (
     message: string,
     namespace: string,
     maxTokens = 3000,
-    minScore = 0.7,
+    minScore = 0.5,
     getOnlyText = true
   ) => {
     const embedding = await getEmbeddings(message);
-  
     const matches = await getMatchesFromEmbeddings(embedding, 3, namespace);
-  
     const qualifyingDocs = matches.filter((m) => m.score && m.score > minScore);
   
-    if (!getOnlyText) {
-      return qualifyingDocs;
-    }
-  
     let docs = matches
-      ? qualifyingDocs.map((match) => match.metadata?.chunk)
+      ? qualifyingDocs.map((match) => match.metadata?.text)
       : [];
     return docs.join("\n").substring(0, maxTokens);
   };
