@@ -1,27 +1,31 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Button, Input, useInput } from "@geist-ui/core";
+import { Input, useInput } from "@geist-ui/core";
+import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation';
-import { Terminal } from "lucide-react"
+import { Terminal, Loader2 } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function Search() {
     const [doi, setDoi] = useState(""); // State to store the DOI input value
     const router = useRouter();
     const { state, setState, reset, bindings } = useInput(doi);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [showAlert, setShowAlert] = useState<boolean>(false); // State to control the visibility of the Alert
 
-    const [showAlert, setShowAlert] = useState(false); // State to control the visibility of the Alert
-
-    const handleSearch = async () => {
+    const handleSearch = async (event: any) => {
+        event?.preventDefault()
         if (!state) {
             setShowAlert(true); // Show the Alert if the DOI is empty
             setTimeout(() => {
                 setShowAlert(false); // Hide the Alert after a few seconds
             }, 4000);
         } else {
+            setLoading(true)
             console.log(state);
             try {
+
                 const response = await fetch('/api/embed', {
                     method: 'POST',
                     body: JSON.stringify({ doi: state }),
@@ -62,7 +66,22 @@ export default function Search() {
                         {...bindings}
                     />
                 </div>
-                <Button onClick={handleSearch} placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>Search</Button>
+                
+                <div className='flex justify-center'>
+                    <Button onClick={handleSearch} disabled={ loading } className='w-2/5'>
+                        {
+                            loading ? 
+                                (
+                                    <>
+                                        <Loader2 className='animate-spin mr-2 h-4 w-4 animate-spin'/>
+                                        Loading
+                                    </>
+                                )
+                            : 
+                                "Search"
+                        }
+                    </Button>
+                </div>
             </form>
             {showAlert && (
                 <Alert variant="destructive" className='w-2/5'>
